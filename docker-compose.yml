@@ -1,0 +1,19 @@
+version: '3'
+services:
+  prestashop:
+    image: prestashop/prestashop:latest
+    container_name: prestashop
+    environment:
+      - PS_DEV_MODE=1
+      - DB_SERVER=mysql  # Asegúrate de que este nombre coincida con el contenedor existente
+      - DB_NAME=prestashop
+      - DB_USER=root
+      - DB_PASS=admin
+    ports:
+      - "8080:80"
+    volumes:
+      - ./prestashop_data:/var/www/html
+    depends_on:
+      - mysql  # Esto no intentará crear un nuevo contenedor, solo esperará el existente
+
+  # No creas un nuevo servicio mysql aquí, solo asegúrate de que prestashop use el existente
